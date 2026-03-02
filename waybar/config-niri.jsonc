@@ -1,0 +1,214 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "width": 2560,
+    "spacing": 1,
+    "modules-left": [
+        "custom/niri-column",
+        "niri/workspaces",
+        "tray",
+        "mpris",
+        "niri/window"
+    ],
+    //"modules-center": [
+    //    "custom/niri-column",
+    //    "niri/workspaces",
+    //    "tray",
+    //    "mpris"
+    //],
+    "modules-right": [
+        "idle_inhibitor",
+        "custom/kernel",
+        "disk#ssd",
+        "temperature",
+        "cpu",
+        "memory",
+        "bluetooth",
+        "network",
+        "pulseaudio",
+        "clock",
+        "custom/weather",
+        "custom/notification",
+        "custom/power"
+    ],
+    
+     "niri/workspaces": {
+         "disable-scroll": false,
+         "all-outputs": true,
+         "warp-on-scroll": false,
+         "format": "{icon}",
+         "format-icons": {
+             "focused": "",
+             "active": "",
+             "default": "",
+             "urgent": "",
+             "empty": "◌"
+         }
+     },
+    "niri/window": {
+        "format": "{title}",
+        "separate-outputs": true
+    },
+    "custom/niri-column": {
+        "exec": "niri msg -j windows | jq -r '(.[] | select(.is_focused == true)) as $f | if $f then ($f.workspace_id) as $ws | ([.[] | select(.workspace_id == $ws)] | map(.layout.pos_in_scrolling_layout[0]) | max) as $m | \"󱂬 \\($f.layout.pos_in_scrolling_layout[0])/\\($m)\" else \"\" end'",
+        "interval": 1,
+        "format": "{}"
+    },
+    "bluetooth": {
+        "format-on": "",
+        "format-off": "({status}) ",
+        "format-connected": "{device_alias} ",
+        "format-connected-battery": "{device_alias} [{device_battery_percentage}%] ",
+        "format-device-preference": [ "ugreen_1", "ugreen_2" ],
+        "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+        "on-click": "blueman-manager"
+    },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "mpris": {
+        "interval": 15,
+    	"format": "{player_icon} {dynamic}",
+    	"format-paused": "{status_icon} <i>{dynamic}</i>",
+    	"dynamic-order": ["artist", "title"],
+    	"player-icons": {
+            "default": "▶",
+            "firefox": "▶",
+            "tidal-hifi": "🎵",
+            "cmus": "🎵"
+    	},
+    	"status-icons": {
+            "paused": "⏸"
+        },
+        // "ignored-players": ["cmus"]
+    },
+    "sway/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": ["", ""],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "tray": {
+        "icon-size": 13,
+        "spacing": 10
+    },
+    "clock": {
+        "interval": 60,
+        "timezone": "Europe/Budapest",
+        "format": "{:%F %R }",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+                    "mode"          : "year",
+                    "mode-mon-col"  : 3,
+                    "weeks-pos"     : "right",
+                    "on-scroll"     : 1,
+                    "on-click-right": "mode",
+                    "format": {
+                              "months":     "<span color='#cba6f7'><b>{}</b></span>",
+                              "days":       "<span color='#cdd6f4'><b>{}</b></span>",
+                              "weeks":      "<span color='#94e2d5'>W{}</span>",
+                              "weekdays":   "<span color='#f9e2af'><b>{}</b></span>",
+                              "today":      "<span color='#f5e0dc'><b><u>{}</u></b></span>"
+                              }
+                    },
+        "actions":  {
+                    "on-click-right": "mode",
+                    "on-click-forward": "tz_up",
+                    "on-click-backward": "tz_down",
+                    "on-scroll-up": "shift_up",
+                    "on-scroll-down": "shift_down"
+                    }
+    },
+    "cpu": {
+        "interval": 3,
+        "format": "{usage}% ",
+        "on-click": "kitty top",
+    },
+    "memory": {
+        "interval": 3,
+        "format": "{}% ",
+        "on-click": "kitty top",
+        "tooltip-format": "Used: {used:0.1f}G/{total:0.1f}G. Swap: {swapUsed:0.1f}G/{swapTotal:0.1f}G",
+        "states": {
+            "critical": 80
+        }
+    },
+    "temperature": {
+        "interval": 3,
+        "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+        "critical-threshold": 90,
+        "format-critical": "{temperatureC}°C {icon}",
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": ["", "", ""]
+    },
+    "disk#ssd": {
+        "interval": 60,
+        "format": "{path} {free} ",
+        "path": "/",
+        "tooltip": true,
+        "warning": 80,
+        "critical": 90
+    },
+    "network": {
+        "interval": 60,
+        "interface-ethernet": "enp1s*",
+        "interface-wifi": "wlan0",
+        "format-ethernet": "eth ",
+        "format-wifi": "{essid} ({signalStrength}%) ",
+        "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+        "tooltip-format-wifi": "{ifname}: {ipaddr}/{cidr} ",
+        "format-linked": "(No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        "on-click": "kitty nmtui"
+    },
+    "custom/weather": {
+        "interval": 600,
+        "exec": "~/.config/waybar/scripts/wittr.sh nyiregyhaza",
+        "return-type": "json",
+        "format": "{}",
+        "tooltip": true
+    },
+    "custom/notification": {
+        "format": "",
+        "on-click": "swaync-client -t -sw"
+    },
+    "custom/power": {
+        "format": "",
+        "on-click": "/home/max/.config/waybar/scripts/power-menu.sh",
+        "tooltip": false
+    },
+    "custom/kernel": {
+        "exec": "uname -r | sed -E 's/^([0-9]+\\.[0-9]+\\.[0-9]+)-.*-([a-zA-Z0-9]+)/\\1-\\2/'",
+        "format": "{} "
+    },
+    "pulseaudio": {
+        "scroll-step": 2,
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            //"headphone": " ",
+            //"hands-free": "",
+            //"headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+        },
+        "on-click": "pavucontrol"
+    },
+}
