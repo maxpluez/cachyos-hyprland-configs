@@ -5,9 +5,9 @@
     "width": 2560,
     "spacing": 1,
     "modules-left": [
-        "custom/niri-column",
+        //"custom/niri-column",
         "niri/workspaces",
-        "tray",
+        //"tray",
         "mpris",
         "niri/window"
     ],
