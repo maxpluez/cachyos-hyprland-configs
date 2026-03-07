@@ -20,11 +20,7 @@ while true; do
 
   case $selected in
     "$lock")
-      confirm=$(echo -e "$confirm_text\n$cancel" | rofi -dmenu -i -theme "$HOME/.config/waybar/rofi-power.rasi" -p "Lock screen?" -click-to-exit)
-      if [[ "$confirm" == "$confirm_text" ]]; then
-          hyprlock; break
-      fi
-      continue ;;
+      hyprlock; break ;;
     "$logout")
       confirm=$(echo -e "$confirm_text\n$cancel" | rofi -dmenu -i -theme "$HOME/.config/waybar/rofi-power.rasi" -p "Logout?" -click-to-exit)
       if [[ "$confirm" == "$confirm_text" ]]; then
