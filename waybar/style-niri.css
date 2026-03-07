@@ -74,6 +74,7 @@ button:hover {
 #custom-weather,
 #custom-notification,
 #custom-power,
+#custom-time,
 #clock,
 #language,
 #pulseaudio,
@@ -90,11 +91,71 @@ button:hover {
 #tray {
     padding: 0 10px;
     margin: 5px 1px;
+    color: @mantle;
+}
+
+#mpris,
+#custom-time,
+#clock,
+#idle_inhibitor,
+#scratchpad,
+#tray {
     color: @text;
 }
 
 #idle_inhibitor {
-    padding-left: 5px;
+    background-color: @base;
+}
+
+#custom-kernel {
+    background-color: @yellow;
+}
+
+#disk {
+    background-color: @green;
+}
+
+#temperature {
+    background-color: @teal;
+    min-width: 37px;
+}
+
+#cpu {
+    background-color: @sky;
+    min-width: 45px;
+}
+
+#memory {
+    background-color: @sapphire;
+}
+
+#bluetooth {
+    background-color: @blue;
+}
+
+#network {
+    background-color: @lavender;
+}
+
+#network.disconnected {
+    background-color: red;
+}
+
+#pulseaudio {
+    background-color: @mauve;
+}
+
+#pulseaudio.muted {
+    background-color: red;
+}
+
+#custom-notification {
+    background-color: @pink;
+}
+
+#custom-power {
+    background-color: @maroon;
+    margin-right: 3px;
 }
 
 #window,
@@ -106,103 +167,12 @@ button:hover {
     margin-left: 0;
 }
 
-#custom-weather {
-    background-color: @teal;
-    color: @mantle;
-}
-
-#custom-notification {
-    background-color: @sky;
-    color: @mantle;
-}
-
-#custom-power {
-    background-color: @blue;
-    color: @mantle;
-}
-
-#custom-kernel {
-    background-color: @rosewater;
-    color: @mantle;
-}
-
-#clock {
-    background-color: @green;
-    color: @mantle;
-}
-
-@keyframes blink {
-    to {
-        background-color: @mantle;
-        color: @text;
-    }
-}
-
-label:focus {
-    background-color: @mantle;
-}
-
-#cpu {
-    background-color: @mauve;
-    color: @mantle;
-    min-width: 45px;
-}
-
-#memory {
-    background-color: @red;
-    color: @mantle;
-}
-
-#disk {
-    background-color: @flamingo;
-    color: @mantle;
-}
-
-#network {
-    background-color: @peach;
-    color: @mantle;
-}
-
-#network.disconnected {
-    background-color: red;
-    color: @mantle;
-}
-
-#bluetooth {
-    background-color: @maroon;
-    color: @mantle;
-}
-
-#pulseaudio {
-    background-color: @yellow;
-    color: @mantle;
-}
-
-#pulseaudio.muted {
-    background-color: red;
-    color: @mantle;
-}
-
-#temperature {
-    background-color: @pink;
-    color: @mantle;
-    min-width: 37px;
-}
-
-#temperature.critical {
-    background-color: red;
-    color: @mantle;
-    min-width: 37px;
-}
-
 #mpris {
     background-color: @base;
-    color: @text;
 }
 
 #tray {
     background-color: @overlay0;
-    color: @text;
 }
 
 #tray > .passive {
@@ -214,12 +184,6 @@ label:focus {
     background-color: @mantle;
 }
 
-#idle_inhibitor {
-    background-color: @base;
-    color: @text;
-    font-family: Inter;
-}
-
 #idle_inhibitor.activated {
     background-color: @text;
     color: @base;
@@ -227,7 +191,6 @@ label:focus {
 
 #scratchpad {
     background-color: @base;
-    color: @text;
 }
 
 #scratchpad.empty {

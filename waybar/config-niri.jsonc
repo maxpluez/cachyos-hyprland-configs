@@ -5,18 +5,16 @@
     "width": 2560,
     "spacing": 1,
     "modules-left": [
-        //"custom/niri-column",
+        "custom/niri-column",
         "niri/workspaces",
         //"tray",
         "mpris",
         "niri/window"
     ],
-    //"modules-center": [
-    //    "custom/niri-column",
-    //    "niri/workspaces",
-    //    "tray",
-    //    "mpris"
-    //],
+    "modules-center": [
+        "custom/time",
+        "clock#date"
+    ],
     "modules-right": [
         "idle_inhibitor",
         "custom/kernel",
@@ -27,8 +25,6 @@
         "bluetooth",
         "network",
         "pulseaudio",
-        "clock",
-        "custom/weather",
         "custom/notification",
         "custom/power"
     ],
@@ -104,10 +100,16 @@
         "icon-size": 13,
         "spacing": 10
     },
-    "clock": {
+    "custom/time": {
+        "exec": "/home/max/.config/waybar/scripts/world-clocks.sh",
+        "return-type": "json",
+        "interval": 1,
+        "format": "{}",
+        "tooltip": true
+    },
+    "clock#date": {
         "interval": 60,
-        "timezone": "Europe/Budapest",
-        "format": "{:%F %R }",
+        "format": "{:%A, %m-%d}",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
                     "mode"          : "year",
@@ -134,7 +136,7 @@
     "cpu": {
         "interval": 3,
         "format": "{usage}% ",
-        "on-click": "kitty top",
+        "on-click": "kitty top"
     },
     "memory": {
         "interval": 3,
@@ -151,7 +153,8 @@
         "critical-threshold": 90,
         "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
+        "format-icons": ["", "", ""],
+        "on-click": "kitty top"
     },
     "disk#ssd": {
         "interval": 60,
@@ -159,7 +162,8 @@
         "path": "/",
         "tooltip": true,
         "warning": 80,
-        "critical": 90
+        "critical": 90,
+        "on-click": "nautilus"
     },
     "network": {
         "interval": 60,
@@ -186,12 +190,13 @@
     },
     "custom/power": {
         "format": "",
-        "on-click": "/home/max/.config/waybar/scripts/power-menu.sh",
+        "on-click": "/home/max/.config/waybar/scripts/power-menu-niri.sh",
         "tooltip": false
     },
     "custom/kernel": {
         "exec": "uname -r | sed -E 's/^([0-9]+\\.[0-9]+\\.[0-9]+)-.*-([a-zA-Z0-9]+)/\\1-\\2/'",
-        "format": "{} "
+        "format": "{} ",
+        "on-click": "kitty"
     },
     "pulseaudio": {
         "scroll-step": 2,
@@ -202,13 +207,10 @@
         "format-source": "{volume}% ",
         "format-source-muted": "",
         "format-icons": {
-            //"headphone": " ",
-            //"hands-free": "",
-            //"headset": "",
             "phone": "",
             "portable": "",
-            "car": "",
+            "car": ""
         },
         "on-click": "pavucontrol"
-    },
+    }
 }

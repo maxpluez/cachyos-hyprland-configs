@@ -15,7 +15,7 @@ window {
     fullscreen:                  false;
     width:                       250px;
     x-offset:                    -10px;
-    y-offset:                    15px;
+    y-offset:                    0px;
 
     enabled:                     true;
     margin:                      0px;
