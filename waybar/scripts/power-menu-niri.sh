@@ -5,41 +5,45 @@ lock="  Lock"
 logout="󰍃  Logout"
 reboot="󰑐  Reboot"
 shutdown="  Shutdown"
-
-confirm_reboot="󰑐  Confirm"
-confirm_shutdown="  Confirm"
 cancel="󰅖  Cancel"
+
+confirm_text="󰄬  Confirm"
 
 entries="$lock
 $logout
 $reboot
-$shutdown"
+$shutdown
+$cancel"
 
 while true; do
   selected=$(echo -e "$entries" | rofi -dmenu -i -theme "$HOME/.config/waybar/rofi-power.rasi" -p "Power Menu" -click-to-exit)
 
   case $selected in
     "$lock")
-      hyprlock; break ;;
+      confirm=$(echo -e "$confirm_text\n$cancel" | rofi -dmenu -i -theme "$HOME/.config/waybar/rofi-power.rasi" -p "Lock screen?" -click-to-exit)
+      if [[ "$confirm" == "$confirm_text" ]]; then
+          hyprlock; break
+      fi
+      continue ;;
     "$logout")
-      niri msg action quit; break ;;
+      confirm=$(echo -e "$confirm_text\n$cancel" | rofi -dmenu -i -theme "$HOME/.config/waybar/rofi-power.rasi" -p "Logout?" -click-to-exit)
+      if [[ "$confirm" == "$confirm_text" ]]; then
+          niri msg action quit; break
+      fi
+      continue ;;
     "$reboot")
-      confirm=$(echo -e "$confirm_reboot\n$cancel" | rofi -dmenu -i -theme "$HOME/.config/waybar/rofi-power.rasi" -p "Are you sure?" -click-to-exit)
-      if [[ "$confirm" == "$confirm_reboot" ]]; then
+      confirm=$(echo -e "$confirm_text\n$cancel" | rofi -dmenu -i -theme "$HOME/.config/waybar/rofi-power.rasi" -p "Reboot?" -click-to-exit)
+      if [[ "$confirm" == "$confirm_text" ]]; then
           systemctl reboot; break
-      elif [[ "$confirm" == "$cancel" ]]; then
-          continue
       fi
-      break ;;
+      continue ;;
     "$shutdown")
-      confirm=$(echo -e "$confirm_shutdown\n$cancel" | rofi -dmenu -i -theme "$HOME/.config/waybar/rofi-power.rasi" -p "Are you sure?" -click-to-exit)
-      if [[ "$confirm" == "$confirm_shutdown" ]]; then
+      confirm=$(echo -e "$confirm_text\n$cancel" | rofi -dmenu -i -theme "$HOME/.config/waybar/rofi-power.rasi" -p "Shutdown?" -click-to-exit)
+      if [[ "$confirm" == "$confirm_text" ]]; then
           systemctl poweroff; break
-      elif [[ "$confirm" == "$cancel" ]]; then
-          continue
       fi
-      break ;;
-    *)
+      continue ;;
+    "$cancel"|*)
       break ;;
   esac
 done

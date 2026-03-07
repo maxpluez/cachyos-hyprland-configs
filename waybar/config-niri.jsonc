@@ -25,6 +25,7 @@
         "bluetooth",
         "network",
         "pulseaudio",
+        "custom/keyboard",
         "custom/notification",
         "custom/power"
     ],
@@ -212,5 +213,11 @@
             "car": ""
         },
         "on-click": "pavucontrol"
+    },
+    "custom/keyboard": {
+        "exec": "fcitx5-remote -n",
+        "interval": 1,
+        "format": " {}",
+        "on-click": "fcitx5-remote -t"
     }
 }

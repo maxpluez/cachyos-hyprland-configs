@@ -1,237 +1,466 @@
-/* --- Global Styles --- */
+/* vim:fileencoding=utf-8:foldmethod=marker:ft=css
+*/
+
+/* Define colors (Catppuccin Mocha spectrum) */
+/* {{{ */
+@define-color background rgba(32, 32, 48, 0.9);
+@define-color background1 rgba(32, 32, 48, 1);
+@define-color background2 rgba(21, 21, 32, 1);
+@define-color sepepator #313244;
+@define-color warning #f38ba8;
+@define-color caution #45475a;
+
+/* Right Bar Spectrum */
+@define-color color_cpu #fab387;      /* Peach */
+@define-color color_nvidia #f9e2af;   /* Yellow */
+@define-color color_ram #a6e3a1;      /* Green */
+@define-color color_swap #94e2d5;     /* Teal */
+@define-color color_disk #89dceb;     /* Sky */
+@define-color color_network #74c7ec;  /* Sapphire */
+@define-color color_audio_in #89b4fa; /* Blue */
+@define-color color_audio_out #b4befe;/* Lavender */
+@define-color color_lang #cba6f7;     /* Mauve */
+@define-color color_clock #f5c2e7;    /* Pink */
+@define-color color_notif #f2cdcd;    /* Flamingo */
+@define-color color_power #f38ba8;    /* Red */
+
+@define-color text #cdd6f4;           /* Light text for dark background */
+@define-color text_dark #000000;
+/* }}} */
+
+/* Reset all styles */
+/* {{{ */
 * {
-  font-family: 'SF Pro Text', 'Inter', 'Segoe UI, NotoSans Nerd Font', sans-serif;
-  font-size: 18px;
-  min-height: 0;
-  padding-right: 0px;
-  padding-left: 0px;
-  padding-bottom: 0px;
-}
-
-/* --- Waybar Container --- */
-#waybar {
-  background: transparent;
-  color: #c6d0f5;
-  margin: 0px;
-  font-weight: 500;
-}
-
-/* --- Left Modules (Individual, Fully Rounded Blocks - With Horizontal Spacing & Simple Hover) --- */
-#workspaces,
-#custom-uptime,
-#cpu {
-  background-color: #1a1b26;
-  padding: 0.3rem 1rem;
-  margin: 2px 0px 0px 0px; /* 2px top, 0px left/right/bottom */
-  border-radius: 10px; /* These modules are always rounded */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  min-width: 0;
-  border: none;
-  /* Transition for background-color and color only */
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-}
-
-#workspaces {
-  padding: 4px;
-  margin-left: 10px; /* Margin from the far left edge */
-  margin-right: 8px; /* Spacing after the workspaces module */
-}
-
-#custom-uptime {
-  margin-right: 8px; /* Spacing after the uptime module */
-}
-
-/* Simple Hover effects for individual left modules - BRIGHTER COLOR */
-#custom-uptime:hover,
-#cpu:hover {
-  background-color: rgb(41, 42, 53); /* Brighter highlight */
-}
-
-#workspaces button {
-  color: #babbf1;
-  border-radius: 8px; /* Slightly more rounded */
-  padding: 0.4rem 1.2rem 0.4rem 0.8rem; /* Reduced top/bottom padding */
-  background: transparent;
-  transition: all 0.2s ease-in-out;
-  border: none;
-  outline: none;
-  margin: 0 2px; /* Small margin between buttons */
-}
-
-#workspaces button.active {
-  color: #99d1db;
-  background-color: rgba(153, 209, 219, 0.1);
-  box-shadow: inset 0 0 0 1px rgba(153, 209, 219, 0.2);
-}
-
-#workspaces button:hover {
-  background: rgb(41, 42, 53); /* Reference bright hover color */
-  color: #c6d0f5;
-}
-
-/* --- Center Module (Individual, Fully Rounded Block - With Simple Hover) --- */
-#clock {
-  background-color: #1a1b26;
-  padding: 0.3rem 1rem;
-  margin: 2px 8px 0px 8px;
-  border-radius: 10px; /* This module is always rounded */
-  box-shadow: 0 1px 3px rgba(153, 209, 219, 0.2);
-  min-width: 0;
-  border: none;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-}
-
-/* Simple Hover effect for clock module - BRIGHTER COLOR */
-#clock:hover {
-  background-color: rgba(153, 209, 219, 0.1); /* Brighter highlight */
-}
-
-#custom-pomodoro {
-    background-color: #1a1b26; /* Consistent dark background */
-    padding: 0.3rem 1rem; /* Consistent padding with other modules (e.g., cpu, uptime) */
-    margin: 2px 0px 0px 0px; /* 2px top, 0px bottom */
-    border-radius: 10px; /* Consistent rounded corners with other individual modules */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Consistent shadow */
-    min-width: 0;
     border: none;
-    outline: none; /* Ensure no default outline */
-    /* Transition for background-color, color, outline, and box-shadow for smooth effect */
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, outline 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    color: #babbf1; /* A calm color, consistent with custom-uptime */
-    font-weight: 600; /* Slightly bolder for the timer, consistent with clock */
+    border-radius: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    text-shadow: none;
 }
 
-/* Positioning and spacing for the custom-pomodoro module */
-#custom-pomodoro {
-    margin-left: 5px; /* Spacing from the previous module (e.g., clock) */
-    margin-right: 5px; /* Spacing before the seamless right bar starts (e.g., bluetooth) */
+/* }}} */
+
+/* Main bar keyframes */
+/* {{{ */
+
+/* Keyframes for main bar criticals */
+
+@keyframes blink-urgent-workspace {
+    to {
+        color: @warning;
+    }
 }
 
-/* Hover effect for the new pomodoro module (consistent with others + rectangular outline) */
-#custom-pomodoro:hover {
-    background-color: rgb(41, 42, 53); /* Brighter highlight, consistent with other individual modules */
-    color: #c6d0f5; /* Text color change on hover, consistent with other individual modules */
-    outline: 1px solid rgba(255, 255, 255, 0.1); /* Rectangular outline on hover */
-    outline-offset: -1px;
+@keyframes blink-critical-text {
+    to {
+        color: @sepepator;
+    }
 }
 
-/* --- Highlighted state for Pomodoro module when running (work or break) --- */
-#custom-pomodoro.work,
-#custom-pomodoro.break {
-  color: #99d1db; /* Text color consistent with active workspaces button */
-  background-color: rgba(153, 209, 219, 0.1); /* Background color consistent with active workspaces button */
-  box-shadow: inset 0 0 0 1px rgba(153, 209, 219, 0.2); /* Inner shadow for outline effect */
-  outline: none;
+/* Keyframes for main bar modifiers */
+@keyframes blink-modifier-text {
+    to {
+        color: @sepepator;
+    }
 }
 
-/* --- Right Modules (Single, Seamless Bar ) --- */
-#bluetooth,
-#pulseaudio,
-#backlight,
-#network,
-#custom-notification,
-#custom-power,
-#battery {
-  background-color: #1a1b26;
-  padding: 0.3rem 0.8rem;
-  margin-top: 2px;
-  margin-bottom: 0px;
-  margin-left: 0px;
-  margin-right: 0px;
-  border-radius: 0;
-  box-shadow: none;
-  min-width: 0;
-  border: none;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+@keyframes blink-special-workspace {
+    to {
+        color: @window;
+    }
 }
 
-#bluetooth:hover,
-#pulseaudio:hover,
-#backlight:hover,
-#network:hover,
-#custom-power:hover,
-#custom-notification:hover,
-#battery:hover {
-  background-color: rgb(41, 42, 53);
+/* }}} */
+
+/* Main bar defaults */
+/* {{{ */
+#waybar.main {
+    background: @background2;
+    font-family: "JetBrainsMono Nerd Font Propo";
+    font-size: 12pt;
+    font-weight: 600;
+    color: @text_dark;
+    border-radius: 6pt;
 }
 
-#network {
-  margin-left: 0px; 
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  padding-left: 1.2rem;
+#waybar.main button {
+    font-family: "JetBrainsMono Nerd Font Propo";
+    font-size: 12pt;
+    font-weight: 600;
+    color: @text_dark;
 }
 
-#custom-power {
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  margin-right: 10px;
-  padding-right: 1.2rem;
+/* }}} */
+
+/* Main bar modules padding */
+/* {{{ */
+#cava,
+#waybar.main #custom-headsetbattery,
+#waybar.main #custom-nvidia,
+#waybar.main #custom-weather,
+#waybar.main #custom-battery,
+#waybar.main #keyboard-state,
+#waybar.main #network,
+#waybar.main #battery,
+#waybar.main #backlight,
+#waybar.main #clock,
+#waybar.main #cpu,
+#waybar.main #language,
+#waybar.main #memory.swap,
+#waybar.main #memory.ram,
+#waybar.main #submap,
+#waybar.main #pulseaudio,
+#waybar.main #temperature,
+#waybar.main #traym,
+#waybar.main #window,
+#waybar.main #disk,
+#waybar.main #custom-notification,
+#waybar.main #custom-power,
+#custom-timer {
+    padding-left: 8pt;
+    padding-right: 8pt;
 }
 
-#custom-uptime {
-  color: #babbf1;
-}
-#cpu {
-  color: #c6d0f5;
+#waybar.main #custom-nvidia {
+    margin-top: -4px;
+    margin-bottom: -4px;
 }
 
-#clock {
-  color: #99d1db;
-  font-weight: 500;
+/* }}} */
+
+/* Module colors & backgrounds (Diverse gradual spectrum) */
+/* {{{ */
+
+/* Section 1 (Background 1) */
+#waybar.main #cpu {
+    color: @color_cpu;
+    background: @background1;
 }
 
-#pulseaudio {
-  color: #c6d0f5;
+#waybar.main #temperature {
+    color: @color_nvidia; /* Share with nvidia if re-enabled */
+    background: @background1;
 }
 
-#custom-notification {
-  color: #c6d0f5;
+#waybar.main #custom-nvidia {
+    color: @color_nvidia;
+    background: @background1;
 }
 
-#backlight {
-  color: #c6d0f5;
+#waybar.main #memory.ram {
+    color: @color_ram;
+    background: @background1;
 }
 
-#network {
-  color: #c6d0f5;
+#waybar.main #memory.swap {
+    color: @color_swap;
+    background: @background1;
 }
 
-#network.disconnected {
-  color: #e78284;
+#waybar.main #disk {
+    color: @color_disk;
+    background: @background1;
 }
 
-#custom-power {
-  color: #babbf1;
-}
-#bluetooth {
-  color: #888888;
-  font-size: 22px;
-}
-#bluetooth.on {
-  color: #2196f3;
-}
-#bluetooth.connected {
-  color: #99d1db;
-}
-#battery {
-  color: #99d1db;;
-}
-#battery.charging {
-  color: #a6d189;
-}
-#battery.warning:not(.charging) {
-  color: #e78284;
+#waybar.main #network.info {
+    color: @color_network;
+    background: @background1;
 }
 
-/* --- Tooltip Styles --- */
+/* Section 2 (Background 2) */
+#waybar.main #pulseaudio.input {
+    color: @color_audio_in;
+    background: @background2;
+}
+
+#waybar.main #pulseaudio.output {
+    color: @color_audio_out;
+    background: @background2;
+}
+
+/* Section 3 (Background 1) */
+#waybar.main #language {
+    color: @color_lang;
+    background: @background1;
+}
+
+/* Section 4 (Background 2) */
+#waybar.main #clock {
+    color: @color_clock;
+    background: @background2;
+    border-radius: 0;
+}
+
+/* Section 5 (Background 1) */
+#waybar.main #custom-notification {
+    color: @color_notif;
+    background: @background1;
+}
+
+#waybar.main #custom-power {
+    color: @color_power;
+    background: @background1;
+    border-radius: 0pt 6pt 6pt 0pt;
+    padding-right: 12pt;
+}
+
+/* }}} */
+
+/* Window & Misc */
+/* {{{ */
+#waybar.main #window {
+    color: @window;
+    box-shadow: none;
+    font-style: italic;
+}
+
+/* }}} */
+
+/* Criticals & Animations */
+/* {{{ */
+#waybar.main #custom-nvidia.critical,
+#waybar.main #custom-headsetbattery.critical,
+#waybar.main #memory.swap.critical,
+#waybar.main #memory.ram.critical,
+#waybar.main #cpu.critical,
+#waybar.main #temperature.critical {
+    color: @warning;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-name: blink-critical-text;
+    animation-duration: 1s;
+    animation-timing-function: steps(15);
+}
+
+#waybar.main #workspaces button.urgent,
+#waybar.main #workspaces button.special.urgent {
+    transition: all 0s ease;
+    background-image: linear-gradient(
+        -63.435deg,
+        transparent 25%,
+        @background2 25%,
+        @background2 75%,
+        transparent 75%
+    );
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-name: blink-urgent-workspace;
+    animation-duration: 1s;
+    animation-timing-function: steps(15);
+}
+
+#waybar.main #custom-headsetbattery.off,
+#waybar.main #pulseaudio.output.muted,
+#waybar.main #pulseaudio.input.source-muted {
+    color: @sepepator;
+}
+
+#waybar.main #custom-headsetbattery.low,
+#waybar.main #custom-battery.warning,
+#waybar.main #custom-battery.critical {
+    color: @warning;
+}
+
+#waybar.main #custom-battery.charging {
+    color: @misc;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-name: blink-modifier-text;
+    animation-duration: 1s;
+    animation-timing-function: steps(15);
+}
+/* }}} */
+
+/* Workspaces */
+/* {{{ */
+#waybar.main #workspaces {
+    padding-left: 20px;
+    padding-right: 4px;
+    margin-top: -6px;
+    margin-bottom: -6px;
+    background-image: linear-gradient(
+        -243.435deg,
+        @background2 17px,
+        @sepepator 17px,
+        @sepepator 21px,
+        transparent 21px,
+        transparent calc(100% -22px),
+        @sepepator calc(100% -22px),
+        @sepepator calc(100% - 18px),
+        transparent calc(100% - 18px)
+    );
+}
+
+#waybar.main #workspaces button {
+    color: #45475a;
+    background: transparent;
+    border: 1.5px solid transparent;
+    padding-left: 4pt;
+    padding-right: 4pt;
+    transition: all 0.25s ease;
+    padding-right: 16px;
+    padding-left: 16px;
+    font-style: italic;
+    margin-left: -17px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-image: linear-gradient(
+        -63.435deg,
+        transparent 25%,
+        @background2 25%,
+        @background2 75%,
+        transparent 75%
+    );
+}
+
+#waybar.main #workspaces button.visible {
+    color: @text_dark;
+    background-image: linear-gradient(
+        -63.435deg,
+        transparent 25%,
+        @caution 25%,
+        @caution 75%,
+        transparent 75%
+    );
+}
+
+#waybar.main #workspaces button.active {
+    color: @window;
+    background-image: linear-gradient(
+        -63.435deg,
+        transparent 24%,
+        @sepepator 24%,
+        @sepepator 28%,
+        @background1 28%,
+        @background1 73%,
+        @sepepator 73%,
+        @sepepator 76%,
+        transparent 76%
+    );
+}
+
+#waybar.main #workspaces button:hover {
+    color: @window;
+}
+
+#waybar.main #workspaces button.special.active {
+    transition: all 0s ease;
+    border: 1.5px solid transparent;
+    color: @sepepator;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-name: blink-special-workspace;
+    animation-duration: 1s;
+    animation-timing-function: steps(15);
+}
+/* }}} */
+
+/* Spacers (Gradient Transitions) */
+/* {{{ */
+#waybar.main #custom-spacer1,
+#waybar.main #custom-spacer2,
+#waybar.main #custom-spacer3,
+#waybar.main #custom-spacer4,
+#waybar.main #custom-spacer5,
+#waybar.main #custom-spacer6,
+#waybar.main #custom-spacer-last {
+    font-size: 16pt;
+    font-weight: bold;
+    color: transparent;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-bottom: -4px;
+    margin-top: -4px;
+}
+
+#waybar.main #custom-spacer1 {
+    background-image: linear-gradient(63.435deg, transparent 47.5%, @sepepator 47.6%, @sepepator 52.4%, @background1 52.5%);
+}
+
+#waybar.main #custom-spacer2 {
+    background-image: linear-gradient(63.435deg, @background1 47.5%, @sepepator 47.6%, @sepepator 52.4%, @background2 52.5%);
+}
+
+#waybar.main #custom-spacer3 {
+    background-image: linear-gradient(63.435deg, @background2 47.5%, @sepepator 47.6%, @sepepator 52.4%, @background1 52.5%);
+}
+
+#waybar.main #custom-spacer4 {
+    background-image: linear-gradient(63.435deg, @background1 47.5%, @sepepator 47.6%, @sepepator 52.4%, @background2 52.5%);
+}
+
+#waybar.main #custom-spacer-last {
+    background-image: linear-gradient(63.435deg, @background2 47.5%, @sepepator 47.6%, @sepepator 52.4%, @background1 52.5%);
+}
+
+#waybar.main #custom-spacer5,
+#waybar.main #custom-spacer6 {
+    background-image: linear-gradient(-63.435deg, transparent 47.5%, @sepepator 47.6%, @sepepator 52.4%, transparent 52.5%);
+}
+/* }}} */
+
+/* Custom tray icon */
+/* {{{ */
+#waybar.main #custom-trayicon {
+    font-size: 11pt;
+    color: transparent;
+    font-style: italic;
+    background: transparent;
+    padding-right: 0pt;
+    padding-left: 2pt;
+    background-size: 16px;
+    background-position: 2px, 0px;
+    background-repeat: no-repeat;
+    background-image: url("/home/jan-aarela/.config/hypr/themes/Mocha-Power/pacman.png");
+}
+/* }}} */
+
+/* Tooltip */
+/* {{{ */
 tooltip {
-  background-color: #1a1b26;
-  color: #dddddd;
-  padding: 8px 16px;
-  margin: 8px 0px;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  font-size: 16px;
+    background: @background;
+    color: @text;
+    border: 3px solid @caution;
+    border-radius: 8px;
+    font-weight: 500;
+    font-family: "JetBrainsMono Nerd Font Propo";
 }
+
+#waybar.main #tray menu {
+    background: @background;
+    color: @text;
+    border: 3px solid @caution;
+    border-radius: 8px;
+}
+/* }}} */
+
+/* Indicator bar battery module (Unchanged) */
+/* {{{ */
+#waybar.indicator {
+    font-size: 10px;
+    color: rgba(0, 0, 0, 0);
+    background: rgba(0, 0, 0, 0);
+}
+
+#waybar.indicator #custom-batteryindicator {
+    border: 2.5px solid @sepepator;
+    background: transparent;
+    box-shadow: inset 0px 4px 4px -5px rgba(0, 0, 0, 0.5), inset 0px -4px 4px -5px rgba(0, 0, 0, 0.5);
+    border-radius: 7px;
+    padding-left: 2502px;
+}
+
+@keyframes blink-critical-battery { to { border-color: @warning; box-shadow: inset 0px 3px 4px -5px @warning, inset 0px -3px 4px -5px @warning; } }
+@keyframes blink-warning-battery { to { border-color: @warning; box-shadow: inset 0px 3px 4px -5px @warning, inset 0px -3px 4px -5px @warning; } }
+@keyframes blink-discharging-battery { to { border-color: @warning; box-shadow: inset 0px 3px 4px -5px @warning, inset 0px -3px 4px -5px @warning; } }
+@keyframes blink-charging-battery { to { border-color: @misc; box-shadow: inset 0px 3px 4px -5px @misc, inset 0px -3px 4px -5px @misc; } }
+@keyframes blink-full-battery { to { border-color: @misc; box-shadow: inset 0px 3px 4px -5px @misc, inset 0px -3px 4px -5px @misc; } }
+
+#waybar.indicator #custom-batteryindicator.critical { animation: blink-critical-battery 1s alternate infinite steps(15); }
+#waybar.indicator #custom-batteryindicator.warning { animation: blink-warning-battery 0.2s alternate 4 steps(15); }
+#waybar.indicator #custom-batteryindicator.discharging { animation: blink-discharging-battery 0.3s alternate 2 steps(15); }
+#waybar.indicator #custom-batteryindicator.charging { animation: blink-charging-battery 0.3s alternate 2 steps(15); }
+#waybar.indicator #custom-batteryindicator.full { animation: blink-full-battery 0.2s alternate 4 steps(15); }
+/* }}} */
