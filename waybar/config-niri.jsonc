@@ -5,6 +5,7 @@
     "width": 2560,
     "spacing": 1,
     "modules-left": [
+        "group/traym",
         "custom/niri-column",
         "niri/workspaces",
         //"tray",
@@ -25,11 +26,23 @@
         "bluetooth",
         "network",
         "pulseaudio",
-        "custom/keyboard",
         "custom/notification",
         "custom/power"
     ],
     
+    "group/traym": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 500,
+            "children-class": "not-focused",
+            "transition-left-to-right": true
+        },
+        "modules": ["custom/trayicon", "tray"]
+    },
+    "custom/trayicon": {
+        "format": "󰍜",
+        "tooltip": false
+    },
      "niri/workspaces": {
          "disable-scroll": false,
          "all-outputs": true,
@@ -45,6 +58,7 @@
      },
     "niri/window": {
         "format": "{title}",
+        "max-length": 40,
         "separate-outputs": true
     },
     "custom/niri-column": {
@@ -71,6 +85,7 @@
         "interval": 15,
     	"format": "{player_icon} {dynamic}",
     	"format-paused": "{status_icon} <i>{dynamic}</i>",
+        "max-length": 40,
     	"dynamic-order": ["artist", "title"],
     	"player-icons": {
             "default": "▶",
@@ -213,11 +228,5 @@
             "car": ""
         },
         "on-click": "pavucontrol"
-    },
-    "custom/keyboard": {
-        "exec": "fcitx5-remote -n",
-        "interval": 1,
-        "format": " {}",
-        "on-click": "fcitx5-remote -t"
     }
 }

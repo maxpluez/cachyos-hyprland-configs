@@ -78,11 +78,13 @@
 /* {{{ */
 #waybar.main {
     background: @background2;
+    background-clip: padding-box;
     font-family: "JetBrainsMono Nerd Font Propo";
     font-size: 12pt;
     font-weight: 600;
     color: @text_dark;
-    border-radius: 6pt;
+    border-radius: 0;
+    border: 1px solid @color_audio_in;
 }
 
 #waybar.main button {
@@ -107,7 +109,6 @@
 #waybar.main #backlight,
 #waybar.main #clock,
 #waybar.main #cpu,
-#waybar.main #language,
 #waybar.main #memory.swap,
 #waybar.main #memory.ram,
 #waybar.main #submap,
@@ -121,11 +122,25 @@
 #custom-timer {
     padding-left: 8pt;
     padding-right: 8pt;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    background-clip: padding-box;
+}
+
+#waybar.main #custom-trayicon {
+    font-size: 11pt;
+    color: @text;
+    font-style: italic;
+    background: transparent;
+    padding-right: 0pt;
+    padding-left: 2pt;
+    border-radius: 5pt 0pt 0pt 5pt;
+    margin-left: 1px;
 }
 
 #waybar.main #custom-nvidia {
-    margin-top: -4px;
-    margin-bottom: -4px;
+    margin-top: 1px;
+    margin-bottom: 1px;
 }
 
 /* }}} */
@@ -181,29 +196,24 @@
 }
 
 /* Section 3 (Background 1) */
-#waybar.main #language {
-    color: @color_lang;
-    background: @background1;
-}
-
-/* Section 4 (Background 2) */
 #waybar.main #clock {
     color: @color_clock;
-    background: @background2;
+    background: @background1;
     border-radius: 0;
 }
 
-/* Section 5 (Background 1) */
+/* Section 4 (Background 2) */
 #waybar.main #custom-notification {
     color: @color_notif;
-    background: @background1;
+    background: @background2;
 }
 
 #waybar.main #custom-power {
     color: @color_power;
-    background: @background1;
-    border-radius: 0pt 6pt 6pt 0pt;
+    background: @background2;
+    border-radius: 0pt 5pt 5pt 0pt;
     padding-right: 12pt;
+    margin-right: 1px;
 }
 
 /* }}} */
@@ -278,8 +288,8 @@
 #waybar.main #workspaces {
     padding-left: 20px;
     padding-right: 4px;
-    margin-top: -6px;
-    margin-bottom: -6px;
+    margin-top: 1px;
+    margin-bottom: 1px;
     background-image: linear-gradient(
         -243.435deg,
         @background2 17px,
@@ -291,6 +301,7 @@
         @sepepator calc(100% - 18px),
         transparent calc(100% - 18px)
     );
+    background-clip: padding-box;
 }
 
 #waybar.main #workspaces button {
@@ -304,8 +315,8 @@
     padding-left: 16px;
     font-style: italic;
     margin-left: -17px;
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     background-image: linear-gradient(
         -63.435deg,
         transparent 25%,
@@ -366,13 +377,13 @@
 #waybar.main #custom-spacer5,
 #waybar.main #custom-spacer6,
 #waybar.main #custom-spacer-last {
-    font-size: 16pt;
+    font-size: 12pt;
     font-weight: bold;
     color: transparent;
     padding-left: 4px;
     padding-right: 4px;
-    margin-bottom: -4px;
-    margin-top: -4px;
+    margin-bottom: 1px;
+    margin-top: 1px;
 }
 
 #waybar.main #custom-spacer1 {
@@ -392,7 +403,7 @@
 }
 
 #waybar.main #custom-spacer-last {
-    background-image: linear-gradient(63.435deg, @background2 47.5%, @sepepator 47.6%, @sepepator 52.4%, @background1 52.5%);
+    background-image: linear-gradient(63.435deg, @background1 47.5%, @sepepator 47.6%, @sepepator 52.4%, @background2 52.5%);
 }
 
 #waybar.main #custom-spacer5,
@@ -405,15 +416,36 @@
 /* {{{ */
 #waybar.main #custom-trayicon {
     font-size: 11pt;
-    color: transparent;
+    color: @text;
     font-style: italic;
     background: transparent;
     padding-right: 0pt;
     padding-left: 2pt;
-    background-size: 16px;
-    background-position: 2px, 0px;
-    background-repeat: no-repeat;
-    background-image: url("/home/jan-aarela/.config/hypr/themes/Mocha-Power/pacman.png");
+}
+
+#waybar.main #tray {
+    padding-left: 4pt;
+    padding-right: 4pt;
+    background-clip: padding-box;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+#waybar.main #tray * {
+    color: @text;
+}
+
+#waybar.main #tray image {
+    color: @text;
+}
+
+#waybar.main #tray > .passive {
+    -gtk-icon-effect: none;
+}
+
+#waybar.main #tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: @warning;
 }
 /* }}} */
 

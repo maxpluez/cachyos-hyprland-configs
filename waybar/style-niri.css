@@ -76,7 +76,6 @@ button:hover {
 #custom-time,
 #clock,
 #language,
-#custom-keyboard,
 #pulseaudio,
 #bluetooth,
 #network,
@@ -88,6 +87,7 @@ button:hover {
 #idle_inhibitor,
 #scratchpad,
 #mode,
+#custom-trayicon,
 #tray {
     padding: 0 10px;
     margin: 5px 1px;
@@ -99,8 +99,19 @@ button:hover {
 #clock,
 #idle_inhibitor,
 #scratchpad,
+#custom-trayicon,
 #tray {
     color: @text;
+}
+
+#traym {
+    margin: 5px 1px 5px 3px;
+}
+
+#custom-trayicon {
+    background-color: @base;
+    margin: 0;
+    border-radius: 1px 0 0 1px;
 }
 
 #idle_inhibitor {
@@ -126,15 +137,15 @@ button:hover {
 }
 
 #memory {
-    background-color: @sky;
+    background-color: @sapphire;
 }
 
 #bluetooth {
-    background-color: @sapphire;
+    background-color: @blue;
 }
 
 #network {
-    background-color: @sapphire;
+    background-color: @lavender;
 }
 
 #network.disconnected {
@@ -142,23 +153,19 @@ button:hover {
 }
 
 #pulseaudio {
-    background-color: @blue;
+    background-color: @mauve;
 }
 
 #pulseaudio.muted {
     background-color: red;
 }
 
-#custom-keyboard {
-    background-color: @lavender;
-}
-
 #custom-notification {
-    background-color: @mauve;
+    background-color: @maroon;
 }
 
 #custom-power {
-    background-color: @pink;
+    background-color: @red;
     margin-right: 3px;
 }
 
@@ -176,7 +183,9 @@ button:hover {
 }
 
 #tray {
-    background-color: @overlay0;
+    background-color: @base;
+    margin: 0;
+    border-radius: 0 1px 1px 0;
 }
 
 #tray > .passive {
