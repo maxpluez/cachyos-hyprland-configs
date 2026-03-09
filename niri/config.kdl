@@ -271,7 +271,7 @@ layout {
 spawn-sh-at-startup "waybar -c /home/max/.config/waybar/config-niri.jsonc -s /home/max/.config/waybar/style-niri.css"
 
 // This line starts the wallpaper engine
-spawn-at-startup "waypaper" "--restore"
+spawn-at-startup "waypaper" "--wallpaper" "/home/max/Pictures/Wallpapers/under_the_moon.png"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
