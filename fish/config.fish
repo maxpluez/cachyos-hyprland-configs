@@ -10,3 +10,5 @@ starship init fish | source
 
 alias chrome='google-chrome-stable'
 alias logout='hyprctl dispatch exit'
+alias mails='mailspring --password-store="gnome-libsecret" --ozone-platform=x11'
+alias email='mails'
