@@ -192,7 +192,7 @@
         "tooltip-format-wifi": "{ifname}: {ipaddr}/{cidr} ",
         "format-linked": "(No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "on-click": "kitty nmtui"
+        "on-click": "/home/max/.config/waybar/scripts/wifi-menu.sh"
     },
     "custom/weather": {
         "interval": 600,
@@ -228,6 +228,6 @@
             "portable": "",
             "car": ""
         },
-        "on-click": "pavucontrol"
+        "on-click": "/home/max/.config/waybar/scripts/audio-menu.sh"
     }
 }
